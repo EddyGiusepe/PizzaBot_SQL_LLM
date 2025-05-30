@@ -38,7 +38,9 @@ def setup_logging() -> None:
 setup_logging()
 logger = logging.getLogger(__name__)
 
-db = SQLDatabase.from_uri("sqlite:///pizzas.db")
+# Adicionando parâmetros de conexão para evitar bloqueios
+connect_args = {"timeout": 30, "check_same_thread": False}
+db = SQLDatabase.from_uri("sqlite:///pizzas.db", connect_args=connect_args)
 
 llm = ChatGroq(model_name="llama3-70b-8192", api_key=groq_api_key, temperature=0)
 
