@@ -45,7 +45,9 @@ logger.info("Iniciando aplicação Pizzaria Delícia de Vitória-ES")
 
 try:
     logger.info(f"{GREEN}Conectando ao banco de dados SQLite 'pizzas.db' . . .{RESET}")
-    db = SQLDatabase.from_uri("sqlite:///pizzas.db")
+    # Adicionando parâmetros de conexão para evitar bloqueios
+    connect_args = {"timeout": 30, "check_same_thread": False}
+    db = SQLDatabase.from_uri("sqlite:///pizzas.db", connect_args=connect_args)
     logger.info(f"{GREEN}Banco de dados conectado com sucesso!{RESET}")
 except Exception as e:
     logger.error(f"{RED}Erro ao conectar ao banco de dados: {e}{RESET}")
