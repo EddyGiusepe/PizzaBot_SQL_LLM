@@ -178,3 +178,5 @@ cython_debug/
 pizzas.db
 LOGs_pizzabot.log
 .env
+pizzas.db-wal
+pizzas.db-shm
