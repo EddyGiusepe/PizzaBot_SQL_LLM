@@ -30,8 +30,12 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 # Conectar ao DB (irá criar se não existir):
-conn = sqlite3.connect("pizzas.db") # chinook  ou  pizzas
+conn = sqlite3.connect("pizzas.db", timeout=30) # chinook  ou  pizzas
 cursor = conn.cursor()
+
+# Configurando PRAGMAs para melhorar o gerenciamento de bloqueio
+cursor.execute("PRAGMA journal_mode=WAL")
+cursor.execute("PRAGMA busy_timeout=5000")
 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS pizza (
